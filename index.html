@@ -2,521 +2,931 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Product Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divine Abode Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        header {
-    background: 6a1b1a;
-    color: Maroon;
-    padding: 22px;
-    text-align: center;
-}
-        .product-card a {
-    display: block;
-}
-        .product-card img {
-    width: 200%;
-    height: 250px;          /* fixed height */
-    object-fit: cover;     /* auto adjust */
-    border-radius: 10px;
-}
+        :root {
+            --maroon: #5a0a0a;
+            --maroon-deep: #3b0606;
+            --maroon-mid: #7a1515;
+            --gold: #c9a84c;
+            --gold-light: #e8d08a;
+            --gold-pale: #f5e9c2;
+            --cream: #fdf6e3;
+            --ivory: #f9f3e1;
+            --text-dark: #2b1a0f;
+            --text-mid: #5c3d2e;
+            --white: #ffffff;
+        }
 
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #6a1b1a;                 *#f2f2f2*
-            margin: 0;
-            padding: 15px;
+            font-family: 'Raleway', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
         }
 
-        h1 {
+        /* ── HERO HEADER ── */
+        .hero {
+            background: linear-gradient(160deg, var(--maroon-deep) 0%, var(--maroon) 50%, #8b1a1a 100%);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 30% at 80% 80%, rgba(201,168,76,0.10) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), #f0d080, var(--gold), transparent);
+        }
+
+        .hero-ornament {
+            color: var(--gold);
+            font-size: 13px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300;
+            animation: fadeUp 1s ease both;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 4px;
             text-align: center;
+            line-height: 1.15;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.4);
+            animation: fadeUp 1s 0.15s ease both;
         }
 
-        .products {
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: rgba(245,233,194,0.75);
+            margin-top: 10px;
+            letter-spacing: 2px;
+            animation: fadeUp 1s 0.3s ease both;
+        }
+
+        .hero-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 18px 0;
+            animation: fadeUp 1s 0.4s ease both;
+        }
+
+        .hero-divider span {
+            display: block;
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+        .hero-divider span:last-child {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .hero-diamond { color: var(--gold); font-size: 10px; }
+
+        /* ── CONTACT BAR ── */
+        .contact-bar {
+            background: var(--ivory);
+            border-bottom: 1px solid rgba(201,168,76,0.25);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-mid);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-bar a {
+            color: var(--maroon);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .contact-bar a:hover { color: var(--gold); }
+        .contact-item { display: flex; align-items: center; gap: 7px; }
+        .contact-icon { font-size: 15px; }
+
+        /* ── NAV ── */
+        .top-nav {
+            background: var(--maroon-deep);
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .top-nav a {
+            color: var(--gold-pale);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 12.5px;
+            letter-spacing: 2px;
+            padding: 16px 36px;
+            display: block;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .top-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%; right: 50%;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .top-nav a:hover { color: var(--gold); }
+        .top-nav a:hover::after { left: 20%; right: 20%; }
+
+        /* ── SECTION TITLES ── */
+        .section-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .section-label {
+            font-family: 'Raleway', sans-serif;
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+            color: var(--maroon);
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+
+        .section-rule {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 18px auto 0;
+            max-width: 300px;
+        }
+
+        .section-rule::before, .section-rule::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+        .section-rule::after {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .rule-gem { color: var(--gold); font-size: 8px; }
+
+        /* ── PRODUCT GRID ── */
+        .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 28px 60px;
         }
 
+        /* ── PRODUCT CARD ── */
         .card {
-            background: white;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            background: var(--white);
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(90,10,10,0.07);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            animation: fadeUp 0.6s ease both;
         }
 
-        img {
-            width: 50%;
-            height: 500px;
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--maroon), var(--gold), var(--maroon));
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(90,10,10,0.14); }
+        .card:hover::before { opacity: 1; }
+
+        /* ── IMAGE GALLERY ── */
+        .image-gallery {
+            position: relative;
+            overflow: hidden;
+            background: #f8f0e4;
+            aspect-ratio: 4/3;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            display: none;
+        }
+
+        .image-gallery img.active { display: block; }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            border: none;
+            padding: 0;
+        }
+        .dot.active { background: var(--gold); transform: scale(1.3); }
+
+        .gallery-btn {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.85);
+            border: none;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--maroon);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0;
+            transition: opacity 0.25s;
+            z-index: 5;
+        }
+
+        .gallery-btn.prev { left: 10px; }
+        .gallery-btn.next { right: 10px; }
+        .image-gallery:hover .gallery-btn { opacity: 1; }
+
+        /* ── SINGLE IMAGE ── */
+        .image-single {
+            overflow: hidden;
+            background: #f8f0e4;
+            aspect-ratio: 4/3;
+        }
+
+        .image-single img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .image-single img { transform: scale(1.04); }
+
+        /* ── CARD CONTENT ── */
+        .card-content {
+            padding: 20px 22px 24px;
+            border-top: 1px solid rgba(201,168,76,0.15);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--maroon);
+            line-height: 1.35;
+            letter-spacing: 0.5px;
         }
 
         .price {
-            font-weight: bold;
-            color: #2e7d32;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
         }
-        .image-group {
-    display: flex;              /* makes images horizontal */
-    gap: 8px;
-}
 
-.image-group img {
-    width: 33%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-        .section-title {
-    color: #d4af37;
-    font-size: 40px;
-    text-align: center;
-}
-        .top-nav {
-    background: #f5f1e8;
-    padding: 10px;
-    text-align: center;
-}
+        .card-note {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 13.5px;
+            color: var(--text-mid);
+            letter-spacing: 0.3px;
+        }
 
-.top-nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #3e2723;
-}
+        .enquire-btn {
+            margin-top: 12px;
+            display: inline-block;
+            padding: 9px 22px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--maroon);
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
 
-.top-nav a:hover {
-    color: #bfa04a;
-}
-  .contact-inline {
-    text-align: center;
-    margin: 10px 0 30px;
-    font-size: 16px;
-    color: #333;
-}
+        .enquire-btn:hover {
+            background: var(--maroon);
+            border-color: var(--maroon);
+            color: var(--gold-light);
+        }
 
-.contact-inline a {
-    color: #bfa04a; /* golden */
-    text-decoration: none;
-    font-weight: bold;
-}
+        /* ── SECTION DIVIDER ── */
+        .section-divider {
+            text-align: center;
+            padding: 20px 0 0;
+        }
+        .section-divider::before {
+            content: '';
+            display: block;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+            margin-bottom: 30px;
+        }
 
-.contact-inline a:hover {
-    text-decoration: underline;
-}  
+        /* ── FOOTER ── */
+        footer {
+            background: var(--maroon-deep);
+            color: rgba(245,233,194,0.8);
+            text-align: center;
+            padding: 44px 20px;
+            position: relative;
+            overflow: hidden;
+        }
 
+        footer::before {
+            content: '';
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            position: absolute;
+            top: 0; left: 0; right: 0;
+        }
 
-        .image-group {
-    display: flex;
-    gap: 10px;
-}
+        .footer-brand {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            letter-spacing: 4px;
+            margin-bottom: 18px;
+        }
 
-.image-group {
-    display: flex;
-    justify-content: center;   /* centers images */
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+        .footer-contacts {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
 
-}
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+        footer a:hover { opacity: 0.75; }
 
-.image-group img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 6px;
-    cursor: pointer;
-}
+        .footer-fine {
+            margin-top: 28px;
+            font-size: 11px;
+            opacity: 0.4;
+            letter-spacing: 1px;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .products-grid .card:nth-child(1) { animation-delay: 0.05s; }
+        .products-grid .card:nth-child(2) { animation-delay: 0.10s; }
+        .products-grid .card:nth-child(3) { animation-delay: 0.15s; }
+        .products-grid .card:nth-child(4) { animation-delay: 0.20s; }
+        .products-grid .card:nth-child(5) { animation-delay: 0.25s; }
+
+        @media (max-width: 600px) {
+            .products-grid { grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 14px 40px; }
+            .top-nav a { padding: 14px 18px; font-size: 11px; letter-spacing: 1px; }
+            .contact-bar { gap: 16px; }
+        }
+
+        @media (max-width: 400px) {
+            .products-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-<h1 class="section-title">Divine Abode Collection</h1>
-    <div class="contact-inline">
-    📞 <a href="tel:8050666236">8050666236</a>
-    &nbsp; | &nbsp;
-    ✉️ <a href="mailto:divineabodecollection@gmail.com">
-        divineabodecollection@gmail.com
-    </a>
+
+<!-- ── HERO ── -->
+<header class="hero">
+    <div class="hero-ornament">✦ Est. Bengaluru ✦</div>
+    <h1 class="hero-title">Divine Abode<br>Collection</h1>
+    <p class="hero-subtitle">Sacred Craftsmanship &amp; Timeless Elegance</p>
+    <div class="hero-divider">
+        <span></span>
+        <span class="hero-diamond">◆</span>
+        <span></span>
+    </div>
+</header>
+
+<!-- ── CONTACT BAR ── -->
+<div class="contact-bar">
+    <div class="contact-item">
+        <span class="contact-icon">📞</span>
+        <a href="tel:8050666236">8050666236</a>
+    </div>
+    <div class="contact-item">
+        <span class="contact-icon">✉️</span>
+        <a href="mailto:divineabodecollection@gmail.com">divineabodecollection@gmail.com</a>
+    </div>
 </div>
+
+<!-- ── NAV ── -->
 <nav class="top-nav">
-    <a href="#german-silver">Click here for German Silver</a>
-    <a href="#jewellery">Click here for Jewellery</a>
+    <a href="#german-silver">German Silver</a>
+    <a href="#jewellery">Jewellery</a>
 </nav>
 
-<section class="product-section" id="german-silver">
-    
+<!-- ══════════════════════════════
+     GERMAN SILVER SECTION
+══════════════════════════════ -->
+<section id="german-silver">
+    <div class="section-header">
+        <p class="section-label">Handcrafted Devotion</p>
+        <h2 class="section-title">German Silver</h2>
+        <div class="section-rule"><span class="rule-gem">◆</span></div>
+    </div>
 
-    <div class="product-grid">
-        <!-- German Silver products -->
+    <div class="products-grid">
+
+        <!-- Balaji -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="Vishnu_Red.jpg" alt="Balaji Red" class="active">
+                <img src="Vishnu_Pink.jpg" alt="Balaji Pink">
+                <img src="Vishnu_Yellow.jpg" alt="Balaji Yellow">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>Silver Coated Balaji</h3>
+                <div class="price">₹ 550</div>
+                <p class="card-note">6″ Height — Available in Red, Green, Pink &amp; Yellow</p>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Ganesha -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="Ganesha1.jpg" alt="Ganesha 1" class="active">
+                <img src="Ganesha3.jpg" alt="Ganesha 3">
+                <img src="Ganesha4.jpg" alt="Ganesha 4">
+                <img src="Ganesha5.jpg" alt="Ganesha 5">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>German Silver Ganesha</h3>
+                <div class="price">₹ 800</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Gold Ganesha -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Gold_Ganesha.jpg" alt="Gold Coated Ganesha">
+            </div>
+            <div class="card-content">
+                <h3>Gold Coated Ganesha</h3>
+                <div class="price">₹ 700</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Brass Deepam -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="Brass_Deepa.jpg" alt="Brass Deepam" class="active">
+                <img src="Brass_Deepa_Purple.jpg" alt="Brass Deepam Purple">
+                <img src="Brass_Deepam_Yellow.jpg" alt="Brass Deepam Yellow">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>Brass Deepam</h3>
+                <div class="price">₹ 250</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Bell -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Bell_Pink.jpg" alt="German Silver Bell">
+            </div>
+            <div class="card-content">
+                <h3>German Silver Bell</h3>
+                <div class="price">₹ 800</div>
+                <p class="card-note">Available in Green, Pink &amp; White</p>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Patta Deepam -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Patta_Deepam.jpg" alt="Patta Leaf Deepam">
+            </div>
+            <div class="card-content">
+                <h3>Patta Leaf German Silver Deepam</h3>
+                <div class="price">₹ 100</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Shank Deepam -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Shank_Deepam.jpg" alt="Shank Deepam">
+            </div>
+            <div class="card-content">
+                <h3>Shank German Silver Deepam</h3>
+                <div class="price">₹ 250</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Ganesha Deepam -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Ganesha_Deepam.jpg" alt="Ganesha Deepam">
+            </div>
+            <div class="card-content">
+                <h3>Ganesha German Silver Deepam</h3>
+                <div class="price">₹ 250</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Kubera Deepam -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Kubera Deepam.jpg" alt="Kubera Deepam">
+            </div>
+            <div class="card-content">
+                <h3>German Silver Kubera Deepam</h3>
+                <div class="price">₹ 420</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Lakshmi Balaji Lamp -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Lakshmi_Balaji.jpg" alt="Lakshmi Balaji Lamp">
+            </div>
+            <div class="card-content">
+                <h3>Lakshmi Balaji Antique German Silver Lamp</h3>
+                <div class="price">₹ 3,567</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
     </div>
 </section>
-    
-    
 
-<div class="card">
-    <div class="image-group">
+<div class="section-divider"></div>
 
-        <a href="Vishnu_Red.jpg" target="_blank">
-            <img src="Vishnu_Red.jpg" alt="Vishnu Red">
-        </a>
-
-        <a href="Vishnu_Pink.jpg" target="_blank">
-            <img src="Vishnu_Pink.jpg" alt="Vishnu Pink">
-        </a>
-
-        <a href="Vishnu_Yellow.jpg" target="_blank">
-            <img src="Vishnu_Yellow.jpg" alt="Vishnu Yellow">
-        </a>
-
-
-
+<!-- ══════════════════════════════
+     JEWELLERY SECTION
+══════════════════════════════ -->
+<section id="jewellery">
+    <div class="section-header">
+        <p class="section-label">Oxidized Silver Adornments</p>
+        <h2 class="section-title">Jewellery</h2>
+        <div class="section-rule"><span class="rule-gem">◆</span></div>
     </div>
 
-    <div class="card-content">
-        <h3>Silver Coated BALAJI</h3>
-        <div class="price">₹550</div>
-        <small>6" Height Balaji Available in Red, Green, Pink and Yellow</small>
-    </div>
-</div>
-    <div class="card">
-    <div class="image-group">
-        <a href="Ganesha1.jpg" target="_blank"><img src="Ganesha1.jpg"></a>
-        <a href="Ganesha3.jpg" target="_blank"><img src="Ganesha3.jpg"></a>
-        <a href="Ganesha4.jpg" target="_blank"><img src="Ganesha4.jpg"></a>
-        <a href="Ganesha5.jpg" target="_blank"><img src="Ganesha5.jpg"></a>
-    </div>
+    <div class="products-grid">
 
-    <div class="card-content">
-        <h3>German Silver Ganesha</h3>
-        <div class="price">₹800</div>
-   
-</div>
-            <div class="card">
-    <div class="image-group">
-        <img src="Gold_Ganesha.jpg">
+        <!-- Long Chain 1 -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="LongBChain.JPG" alt="Long Chain Back" class="active">
+                <img src="LongChainM.JPG" alt="Long Chain Front">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Long Chain</h3>
+                <div class="price">₹ 550</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
-    </div>
-    
-    <div class="card-content">
-        <h3>Gold Coated Ganesha</h3>
-        <div class="price">₹700</div> 
-    </div>
+        <!-- Choker -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Choker2.JPG" alt="Oxidized Silver Chain">
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Chain</h3>
+                <div class="price">₹ 300</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
- <div class="card">
-    <div class="image-group">
-        <img src="Brass_Deepa.jpg">
-        <img src="Brass_Deepa_Purple.jpg">
-        <img src="Brass_Deepam_Yellow.jpg">
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Brass Deepam </h3>
-        <div class="price">₹250</div> 
-    </div> 
-              <div class="card">
-    <div class="image-group">
-        <img src="Bell_Pink.jpg">
+        <!-- Long Chain 2 -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="LongChain2.JPG" alt="Long Chain 2" class="active">
+                <img src="Peacock_Chain.JPG" alt="Peacock Chain">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Long Chain</h3>
+                <div class="price">₹ 400</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
-    </div>
-    
-    <div class="card-content">
-        <h3>German Silver Bell</h3>
-        <div class="price">₹800</div> 
-        <small> Available in Green,Pink and White</small>
-    </div>  
-              <div class="card">
-    <div class="image-group">
-        <img src="Patta_Deepam.jpg">
+        <!-- Short Necklace 1 -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="Chain1.JPG" alt="Short Necklace" class="active">
+                <img src="Short_Necklace3.JPG" alt="Short Necklace 3">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Short Necklace</h3>
+                <div class="price">₹ 450</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
-    </div>
-    
-    <div class="card-content">
-        <h3>Patta Leaf German Silver Deepam</h3>
-        <div class="price">₹100</div> 
+        <!-- Short Necklace 2 -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Short_Necklace.JPG" alt="Short Necklace">
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Short Necklace</h3>
+                <div class="price">₹ 280</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
-    </div>  
-                                <div class="card">
-    <div class="image-group">
-        <img src="Shank_Deepam.jpg">
+        <!-- Short Necklace 3 -->
+        <div class="card">
+            <div class="image-single">
+                <img src="Short_Necklace2.JPG" alt="Short Necklace">
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Short Necklace</h3>
+                <div class="price">₹ 200</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
-    </div>
-    
-    <div class="card-content">
-        <h3> Shank German Silver Deepam</h3>
-        <div class="price">₹250</div> 
-     
-    </div> 
-                                    <div class="card">
-    <div class="image-group">
-        <img src="Ganesha_Deepam.jpg">
+        <!-- Ear Ring ₹350 Set A -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="ER_400_2.JPG" alt="Ear Ring" class="active">
+                <img src="ER_400_3.JPG" alt="Ear Ring">
+                <img src="ER_400_4.jpg" alt="Ear Ring">
+                <img src="ER_400_5.jpg" alt="Ear Ring">
+                <img src="ER_400_6.jpg" alt="Ear Ring">
+                <img src="ER_400_7.jpg" alt="Ear Ring">
+                <img src="ER_400_8.jpg" alt="Ear Ring">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Ear Ring</h3>
+                <div class="price">₹ 350</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
-    </div>
-    
-    <div class="card-content">
-        <h3>Ganesha German Silver Deepam</h3>
-        <div class="price">₹250</div> 
-     
-    </div> 
-  <div class="card">
-    <div class="image-group">
-    
-        <img src="Kubera Deepam.jpg">
-    
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>German Silver Kubera Deepam </h3>
-        <div class="price">₹420</div> 
-    </div>  
-       </div>  
-                                <div class="card">
-    <div class="image-group">
-        <img src="Lakshmi_Balaji.jpg">
+        <!-- Ear Ring ₹350 Set B -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="EarRing1_350.jpg" alt="Ear Ring" class="active">
+                <img src="EarRing3_350.jpg" alt="Ear Ring">
+                <img src="EarRing4_350.jpg" alt="Ear Ring">
+                <img src="EarRing5_350.jpg" alt="Ear Ring">
+                <img src="EarRing7_350.jpg" alt="Ear Ring">
+                <img src="EarRing8_350.jpg" alt="Ear Ring">
+                <img src="EarRing9_350.jpg" alt="Ear Ring">
+                <img src="EarRing11_350.jpg" alt="Ear Ring">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Ear Ring</h3>
+                <div class="price">₹ 350</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
-    </div>
-    
-    <div class="card-content">
-        <h3>Lakshmi Balaji Antique German Silver Lamp</h3>
-        <div class="price">₹3567.3
-        </div> 
-        <section class="product-section" id="jewellery">
-    <h2 class="section-title">Jewellery</h2>
+        <!-- Ear Ring ₹200 -->
+        <div class="card">
+            <div class="image-gallery">
+                <img src="EarRing1_250.jpg" alt="Ear Ring" class="active">
+                <img src="EarRing2_250.jpg" alt="Ear Ring">
+                <img src="EarRing3_250.jpg" alt="Ear Ring">
+                <button class="gallery-btn prev">&#8249;</button>
+                <button class="gallery-btn next">&#8250;</button>
+                <div class="gallery-dots">
+                    <button class="dot active"></button>
+                    <button class="dot"></button>
+                    <button class="dot"></button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Ear Ring</h3>
+                <div class="price">₹ 200</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
 
-    <div class="product-grid">
-        <!-- Jewellery products -->
+        <!-- Ear Ring ₹320 -->
+        <div class="card">
+            <div class="image-single">
+                <img src="EarRing_320.jpg" alt="Ear Ring">
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Ear Ring</h3>
+                <div class="price">₹ 320</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
+        <!-- Ear Ring ₹300 -->
+        <div class="card">
+            <div class="image-single">
+                <img src="ER_300_1.jpg" alt="Ear Ring">
+            </div>
+            <div class="card-content">
+                <h3>Oxidized Silver Ear Ring</h3>
+                <div class="price">₹ 300</div>
+                <a class="enquire-btn" href="tel:8050666236">Enquire Now</a>
+            </div>
+        </div>
+
     </div>
 </section>
-    </div>
-    <div class="card">
-    <div class="image-group">
-        <img src="LongBChain.JPG">
-        <img src="LongChainM.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Long Chain</h3>
-        <div class="price">₹550</div> 
-    </div> 
- <div class="card">
-    <div class="image-group">
-  
 
-         </div> 
- <div class="card">
-    <div class="image-group">
-        <img src="Choker2.JPG">
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-brand">Divine Abode Collection</div>
+    <p style="font-family:'Cormorant Garamond',serif; font-style:italic; opacity:0.6; font-size:14px;">Sacred Craftsmanship &amp; Timeless Elegance</p>
+    <div class="footer-contacts">
+        <div>📞 <a href="tel:8050666236">8050666236</a></div>
+        <div>✉️ <a href="mailto:divineabodecollection@gmail.com">divineabodecollection@gmail.com</a></div>
     </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Chain</h3>
-        <div class="price">₹300</div>        
-    </div>
-     <div class="card">
-    <div class="image-group">
-        <img src="LongChain2.JPG">
-        <img src="Peacock_Chain.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Long Chain</h3>
-        <div class="price">₹400</div> 
-    </div> 
-<div class="card">
-    <div class="image-group">
-        <img src="Chain1.JPG">
-        <img src="Short_Necklace3.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Short Necklace</h3>
-        <div class="price">₹450</div> 
-   
-    </div> 
-<div class="card">
-    <div class="image-group">
-    
-        <img src="Short_Necklace.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Short Necklace</h3>
-        <div class="price">₹280</div> 
-        </div> 
-<div class="card">
-    <div class="image-group">
-    
-        <img src="Short_Necklace2.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Short Necklace</h3>
-        <div class="price">₹200</div> 
-
-        <div class="card">
-    <div class="image-group">
-     
-        <img src="ER_400_2.JPG">
-        <img src="ER_400_3.JPG">
-        <img src="ER_400_4.jpg">
-        <img src="ER_400_5.jpg">
-        <img src="ER_400_6.jpg">
-        <img src="ER_400_7.jpg">
-        <img src="ER_400_8.jpg">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹350</div>
-             <div class="card">
-    <div class="image-group">
-        <img src="EarRing1_350.jpg">
-         <img src="EarRing3_350.jpg">
-         <img src="EarRing4_350.jpg">
-         <img src="EarRing5_350.jpg">
-         <img src="EarRing7_350.jpg">
-        <img src="EarRing8_350.jpg">
-         <img src="EarRing9_350.jpg">
-     
-         <img src="EarRing11_350.jpg">
-
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹350</div>
-        <div class="card">
-    <div class="image-group">
-        <img src="EarRing1_250.jpg">
-         <img src="EarRing2_250.jpg">
-         <img src="EarRing3_250.jpg">
-         
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹200</div>
-
-        <div class="card">
-    <div class="image-group">
-        <img src="EarRing_320.jpg">
- 
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹320</div>
-
-        <div class="card">
-    <div class="image-group">
-        <img src="ER_300_1.jpg">
- 
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹300</div>
-        
-</div>
-    <footer class="site-footer">
-    <p>📞 Mobile: <a href="tel:8050666236">8050666236</a></p>
-    <p>✉️ Email: <a href="mailto:divineabodecollection@gmail.com">
-        divineabodecollection@gmail.com
-    </a></p>
+    <p class="footer-fine">© Divine Abode Collection · Bengaluru</p>
 </footer>
+
+<script>
+    document.querySelectorAll('.image-gallery').forEach(gallery => {
+        const imgs = gallery.querySelectorAll('img');
+        const dots = gallery.querySelectorAll('.dot');
+        const prev = gallery.querySelector('.prev');
+        const next = gallery.querySelector('.next');
+        let current = 0;
+
+        if (imgs.length <= 1) {
+            if (prev) prev.style.display = 'none';
+            if (next) next.style.display = 'none';
+            return;
+        }
+
+        function goTo(idx) {
+            imgs[current].classList.remove('active');
+            if (dots[current]) dots[current].classList.remove('active');
+            current = (idx + imgs.length) % imgs.length;
+            imgs[current].classList.add('active');
+            if (dots[current]) dots[current].classList.add('active');
+        }
+
+        if (prev) prev.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+        if (next) next.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+        dots.forEach((dot, i) => dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); }));
+
+        setInterval(() => goTo(current + 1), 3800);
+    });
+</script>
+
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
